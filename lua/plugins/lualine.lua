@@ -3,7 +3,7 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
 	require("lualine").setup({
-	    icons_enabled = false,
+	    icons_enabled = true,
 	})
     end,
 }
