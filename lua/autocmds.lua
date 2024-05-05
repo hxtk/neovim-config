@@ -7,7 +7,9 @@ autocmd("BufWritePre", {
     group = fmtgroup,
     pattern = "*.proto",
     callback = function()
+        local v = vim.fn.winsaveview()
         vim.cmd(":%!buf format")
+        vim.fn.winrestview(v)
     end,
 })
 
@@ -16,7 +18,9 @@ autocmd("BufWritePre", {
     group = fmtgroup,
     pattern = "*.json",
     callback = function()
+        local v = vim.fn.winsaveview()
         vim.cmd(":%!jq .")
+        vim.fn.winrestview(v)
     end,
 })
 
@@ -25,7 +29,9 @@ autocmd("BufWritePre", {
     group = fmtgroup,
     pattern = "*.rs",
     callback = function()
+        local v = vim.fn.winsaveview()
         vim.cmd(":%!rustfmt")
+        vim.fn.winrestview(v)
     end,
 })
 
@@ -34,8 +40,10 @@ autocmd("BufWritePost", {
     group = fmtgroup,
     pattern = "*.py",
     callback = function()
+        local v = vim.fn.winsaveview()
         vim.cmd(":silent! !black %")
         vim.cmd(":silent! !ruff check --fix %")
+        vim.fn.winrestview(v)
     end,
 })
 
@@ -56,6 +64,8 @@ autocmd("BufWritePre", {
                 config = vim.env.APPDATA .. "\\stylua\\stylua.toml"
             end
         end
+        local v = vim.fn.winsaveview()
         vim.cmd(string.format(":%%!stylua -f '%s' --stdin-filepath '%%' -", config))
+        vim.fn.winrestview(v)
     end,
 })
