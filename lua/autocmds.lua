@@ -20,6 +20,15 @@ autocmd("BufWritePre", {
     end,
 })
 
+-- Rust format on save
+autocmd("BufWritePre", {
+    group = fmtgroup,
+    pattern = "*.rs",
+    callback = function()
+        vim.cmd(":%!rustfmt")
+    end,
+})
+
 -- Stylua on save
 autocmd("BufWritePre", {
     group = fmtgroup,
