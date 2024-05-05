@@ -29,6 +29,16 @@ autocmd("BufWritePre", {
     end,
 })
 
+-- Python format on save
+autocmd("BufWritePost", {
+    group = fmtgroup,
+    pattern = "*.py",
+    callback = function()
+        vim.cmd(":silent! !black %")
+        vim.cmd(":silent! !ruff check --fix %")
+    end,
+})
+
 -- Stylua on save
 autocmd("BufWritePre", {
     group = fmtgroup,
