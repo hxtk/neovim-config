@@ -5,6 +5,7 @@ return {
   config = function()
     -- Initialize with default config
     require("zig-tools").setup()
+    require("lsp-config").zls.setup({})
   end,
   dependencies = {
     {
