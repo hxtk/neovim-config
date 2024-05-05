@@ -1,3 +1,3 @@
 return {
-	"uarun/vim-protobuf",
+    "uarun/vim-protobuf",
 }
