@@ -13,3 +13,4 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins")
 
+vim.cmd("source ~/.config/nvim/plugin/google_python_style.vim")
