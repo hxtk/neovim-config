@@ -13,5 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins")
 
+require("mylsps").setup({})
+
 vim.wo.number = true
 vim.cmd("source ~/.config/nvim/plugin/google_python_style.vim")
