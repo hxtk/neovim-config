@@ -6,6 +6,8 @@ return {
                 if client:supports_method("textDocument/completion") then
                     vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
                 end
+                vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
+                vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, {})
             end,
         })
         vim.lsp.enable("buf_ls")
