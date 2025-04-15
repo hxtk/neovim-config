@@ -1,22 +1,21 @@
 local map = vim.keymap.set
 
 -- diagnostic
-local diagnostic_goto = function(next, severity)
-    local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+local diagnostic_goto = function(len, severity)
     severity = severity and vim.diagnostic.severity[severity] or nil
     return function()
-        go({ severity = severity })
+        vim.diagnostic.jump({ count = len, float = true, severity = severity })
     end
 end
 
 local setup = function()
     map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
-    map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
-    map("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
-    map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
-    map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
-    map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
-    map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
+    map("n", "]d", diagnostic_goto(1), { desc = "Next Diagnostic" })
+    map("n", "[d", diagnostic_goto(-1), { desc = "Prev Diagnostic" })
+    map("n", "]e", diagnostic_goto(1, "ERROR"), { desc = "Next Error" })
+    map("n", "[e", diagnostic_goto(-1, "ERROR"), { desc = "Prev Error" })
+    map("n", "]w", diagnostic_goto(1, "WARN"), { desc = "Next Warning" })
+    map("n", "[w", diagnostic_goto(-1, "WARN"), { desc = "Prev Warning" })
 end
 
 return {
