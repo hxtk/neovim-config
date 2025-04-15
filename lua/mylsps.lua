@@ -98,5 +98,6 @@ return {
         })
 
         vim.lsp.enable("taplo")
+        vim.lsp.enable("vale_ls")
     end,
 }
