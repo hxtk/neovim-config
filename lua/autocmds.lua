@@ -35,17 +35,6 @@ autocmd("BufWritePre", {
     end,
 })
 
--- Rust format on save
-autocmd("BufWritePre", {
-    group = fmtgroup,
-    pattern = "*.rs",
-    callback = function()
-        local v = vim.fn.winsaveview()
-        vim.cmd(":%!rustfmt")
-        vim.fn.winrestview(v)
-    end,
-})
-
 -- C/C++ format on save
 autocmd("BufWritePre", {
     group = fmtgroup,

@@ -64,8 +64,18 @@ return {
 
         vim.lsp.enable("rust_analyzer")
         vim.lsp.config("rust_analyzer", {
-            on_attach = function(client)
+            on_attach = function(client, bufnr)
                 require("completion").on_attach(client)
+                if client.supports_method("textDocument/formatting") then
+                    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+                    vim.api.nvim_create_autocmd("BufWritePre", {
+                        group = augroup,
+                        buffer = bufnr,
+                        callback = function()
+                            vim.lsp.buf.format()
+                        end,
+                    })
+                end
             end,
             settings = {
                 ["rust-analyzer"] = {
@@ -86,6 +96,7 @@ return {
                 },
             },
         })
+
         vim.lsp.enable("taplo")
     end,
 }
