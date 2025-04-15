@@ -24,6 +24,17 @@ autocmd("BufWritePre", {
     end,
 })
 
+-- Zig format on save
+autocmd("BufWritePre", {
+    group = fmtgroup,
+    pattern = "*.zig",
+    callback = function()
+        local v = vim.fn.winsaveview()
+        vim.lsp.buf.format()
+        vim.fn.winrestview(v)
+    end,
+})
+
 -- Rust format on save
 autocmd("BufWritePre", {
     group = fmtgroup,
@@ -31,6 +42,17 @@ autocmd("BufWritePre", {
     callback = function()
         local v = vim.fn.winsaveview()
         vim.cmd(":%!rustfmt")
+        vim.fn.winrestview(v)
+    end,
+})
+
+-- C/C++ format on save
+autocmd("BufWritePre", {
+    group = fmtgroup,
+    pattern = { "*.c", "*.cc", "*.h", "*.hpp", "*.cpp" },
+    callback = function()
+        local v = vim.fn.winsaveview()
+        vim.cmd(":%!clang-format --style=google")
         vim.fn.winrestview(v)
     end,
 })
