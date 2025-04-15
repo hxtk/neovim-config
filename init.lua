@@ -13,8 +13,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins")
 
-require("mylsps").setup({})
-require("bindings").setup({})
+require("mylsps").setup()
+require("bindings").setup()
 require("autocmds")
 
 vim.wo.number = true

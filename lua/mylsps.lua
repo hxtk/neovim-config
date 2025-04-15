@@ -11,6 +11,25 @@ return {
         vim.lsp.enable("buf_ls")
         vim.lsp.enable("clangd")
         vim.lsp.enable("gopls")
+        vim.lsp.enable("lua_ls")
+        vim.lsp.config("lua_ls", {
+            settings = {
+                Lua = {
+                    diagnostics = {
+                        -- Get the language server to recognize the `vim` global
+                        globals = {
+                            "vim",
+                            "require",
+                        },
+                    },
+                    workspace = {
+                        -- Make the server aware of Neovim runtime files
+                        library = vim.api.nvim_get_runtime_file("", true),
+                    },
+                },
+            },
+        })
+
         vim.lsp.enable("pyright")
         vim.lsp.enable("ruff")
 
