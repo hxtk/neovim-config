@@ -4,12 +4,13 @@ return {
             callback = function(ev)
                 local client = vim.lsp.get_client_by_id(ev.data.client_id)
                 if client:supports_method("textDocument/completion") then
-                    vim.lsp.completion.enable(true, client.id.ev.buf, { autotrigger = true })
+                    vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
                 end
             end,
         })
         vim.lsp.enable("buf_ls")
         vim.lsp.enable("clangd")
+        vim.lsp.enable("gopls")
         vim.lsp.enable("pyright")
         vim.lsp.enable("ruff")
 
