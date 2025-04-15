@@ -1,3 +1,5 @@
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
 return {
     setup = function()
         vim.api.nvim_create_autocmd("LspAttach", {
@@ -14,7 +16,29 @@ return {
             end,
         })
         vim.lsp.enable("buf_ls")
+        vim.lsp.config("buf_ls", {
+            on_attach = function(client, bufnr)
+                if client.supports_method("textDocument/formatting") then
+                    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+                    vim.api.nvim_create_autocmd("BufWritePre", {
+                        group = augroup,
+                        buffer = bufnr,
+                        callback = function()
+                            vim.lsp.buf.format()
+                        end,
+                    })
+                end
+            end,
+            settings = {
+                filetypes = { "proto" },
+            },
+        })
         vim.lsp.enable("clangd")
+        vim.lsp.config("clangd", {
+            settings = {
+                filetypes = { "c", "cpp", "cuda" },
+            },
+        })
         vim.lsp.enable("gopls")
         vim.lsp.enable("lua_ls")
         vim.lsp.config("lua_ls", {
